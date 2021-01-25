@@ -1,0 +1,15 @@
+name: SpyPlugin
+main: io.github.MrSpy42.spyplugin.SpyPlugin
+version: 0.0.1-SNAPSHOT
+author: MrSpy42
+commands:
+   memuse:
+      description: Prints server memory usage.
+      usage: /memuse
+      permission: SpyPlugin.memuse
+      permission-message: You don't have permission to run this command.
+   aboutspy:
+      description: Prints stuff about SpyPlugin.
+      usage: /aboutspy
+      permission: SpyPlugin.aboutspy
+      permission-message: You don't have permission.
