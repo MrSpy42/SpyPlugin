@@ -13,3 +13,8 @@ commands:
       usage: /aboutspy
       permission: SpyPlugin.aboutspy
       permission-message: You don't have permission.
+   serverload:
+      description: Prints server load percentage
+      usage: /serverload
+      permission: SpyPlugin.aboutspy
+      permission-message: You don't have permission.
