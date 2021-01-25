@@ -1,6 +1,6 @@
 name: SpyPlugin
 main: io.github.MrSpy42.spyplugin.SpyPlugin
-version: 0.1.1-SNAPSHOT
+version: 0.1.2-SNAPSHOT
 api-version: 1.16
 author: MrSpy42
 commands:
