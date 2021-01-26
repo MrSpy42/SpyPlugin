@@ -26,14 +26,17 @@ public final class SpyPlugin extends JavaPlugin {
 		this.getCommand("aboutspy").setExecutor(new PluginCommandExecutor(this));
 		
 		BukkitScheduler scheduler = getServer().getScheduler();
+	    scheduler.scheduleSyncRepeatingTask(this, new Lag(), 100L, 1L);
         scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
             @Override
             public void run() {
-            	if(osBean.getProcessCpuLoad() > 0.97) {
-            		getServer().broadcastMessage("[SpyPlugin] Server is overloaded!");
+            	double tps = Lag.getTPS();
+            	double lagPercentage = Math.round((1.0D - tps / 20.0D) * 100.0D);
+            	if(osBean.getProcessCpuLoad() > 0.98 || tps < 19.0D) {
+            		getServer().broadcastMessage("§9[SpyPlugin] §4Server is overloaded! §FLag% is at " + String.valueOf(lagPercentage) + "%");
             	}
             	if(getUsedMemory() > (getTotalMemory() - 200L)) {
-            		getServer().broadcastMessage("[SpyPlugin] Server is running out of memory!");
+            		getServer().broadcastMessage("§9[SpyPlugin] §4Server is running out of memory!");
             	}
             }
         }, 1L, 20L);
