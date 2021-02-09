@@ -1,6 +1,6 @@
 name: SpyPlugin
 main: io.github.MrSpy42.spyplugin.SpyPlugin
-version: 0.1.2-SNAPSHOT
+version: 0.1.3-SNAPSHOT
 api-version: 1.16
 author: MrSpy42
 commands:
@@ -18,4 +18,9 @@ commands:
       description: Prints server load percentage
       usage: /serverload
       permission: SpyPlugin.aboutspy
+      permission-message: You don't have permission.
+   freespace:
+      description: Prints server free disk space (in MBs).
+      usage: /freespace
+      permission: SpyPlugin.freespace
       permission-message: You don't have permission.

@@ -4,6 +4,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.lang.management.ManagementFactory;
 import org.bukkit.scheduler.BukkitScheduler;
 import com.sun.management.OperatingSystemMXBean;
+import java.io.File;
 
 
 public final class SpyPlugin extends JavaPlugin {
@@ -18,12 +19,18 @@ public final class SpyPlugin extends JavaPlugin {
 	    return Runtime.getRuntime().maxMemory() / 1048576L;
 	}
 	
+	public static long getUsableSpaceMB() {
+		File f = new File("C:\\"); //Windows only, !!Fix later!!
+		return f.getUsableSpace() / 1048576L;
+	}
+	
 	
 	@Override
     public void onEnable() {
 		this.getCommand("memuse").setExecutor(new PluginCommandExecutor(this));
 		this.getCommand("serverload").setExecutor(new PluginCommandExecutor(this));
 		this.getCommand("aboutspy").setExecutor(new PluginCommandExecutor(this));
+		this.getCommand("freespace").setExecutor(new PluginCommandExecutor(this));
 		
 		BukkitScheduler scheduler = getServer().getScheduler();
 	    scheduler.scheduleSyncRepeatingTask(this, new Lag(), 100L, 1L);
@@ -35,8 +42,11 @@ public final class SpyPlugin extends JavaPlugin {
             	if(osBean.getProcessCpuLoad() > 0.98 || tps < 19.0D) {
             		getServer().broadcastMessage("§9[SpyPlugin] §4Server is overloaded! §FLag% is at " + String.valueOf(lagPercentage) + "%");
             	}
-            	if(getUsedMemory() > (getTotalMemory() - 200L)) {
+            	else if(getUsedMemory() > (getTotalMemory() - 200L)) {
             		getServer().broadcastMessage("§9[SpyPlugin] §4Server is running out of memory!");
+            	}
+            	else if(getUsableSpaceMB() < 50L) {
+            		getServer().broadcastMessage("§9[SpyPlugin] §4Server is running out of space! World corruption is possible!!");
             	}
             }
         }, 1L, 20L);

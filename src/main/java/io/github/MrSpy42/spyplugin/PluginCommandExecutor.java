@@ -21,14 +21,18 @@ public class PluginCommandExecutor implements CommandExecutor {
 	    	sender.sendMessage("§9[SpyPlugin] §6Server load is at " + String.valueOf(Math.round(osBean.getProcessCpuLoad() * 100)) + "%");
 	    	return true;
 	   	} 
-	   	if (cmd.getName().equalsIgnoreCase("memuse")) { 
+		else if (cmd.getName().equalsIgnoreCase("memuse")) { 
 	    	sender.sendMessage("§9[SpyPlugin] §6" + String.valueOf(SpyPlugin.getUsedMemory()) + "MB/" + String.valueOf( SpyPlugin.getTotalMemory()) + "MB is used.");
 	    	return true;
 	    } 
-	    if (cmd.getName().equalsIgnoreCase("aboutspy")) { 
-	    	sender.sendMessage("§9[SpyPlugin] §DThis is a plugin to check if there are enough resources for the server to continue running. Made by MrSpy42");
+	   	else if (cmd.getName().equalsIgnoreCase("aboutspy")) { 
+	    	sender.sendMessage("§9[SpyPlugin] §DThis is a performance monitoring plugin.It checks stuff (e.g ram, server load) and informs the user if there's something wrong (e.g server overload, running out of ram). Made by MrSpy42");
 	    	return true;
-	    } 
+	   	}
+	   	else if (cmd.getName().equalsIgnoreCase("freespace")) {
+	   		sender.sendMessage("§9[SpyPlugin] §6Free space : " + String.valueOf(SpyPlugin.getUsableSpaceMB()) + "MB");
+	   		return true;
+	   	}
 	    return false; 
 	}
 }
