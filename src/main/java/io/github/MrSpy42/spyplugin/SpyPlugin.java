@@ -1,5 +1,7 @@
 package io.github.MrSpy42.spyplugin;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.lang.management.ManagementFactory;
 import org.bukkit.scheduler.BukkitScheduler;
@@ -15,12 +17,15 @@ public final class SpyPlugin extends JavaPlugin {
 	    return (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576L;
 	}
 	
+	public void pushLogMessage(String s) {
+		getLogger().info(s);
+	}
 	public static long getTotalMemory() {
 	    return Runtime.getRuntime().maxMemory() / 1048576L;
 	}
 	
 	public static long getUsableSpaceMB() {
-		File f = new File("C:\\"); //Windows only, !!Fix later!!
+		File f = new File("C:\\"); //Windows only, Fix later
 		return f.getUsableSpace() / 1048576L;
 	}
 	
@@ -40,13 +45,37 @@ public final class SpyPlugin extends JavaPlugin {
             	double tps = Lag.getTPS();
             	double lagPercentage = Math.round((1.0D - tps / 20.0D) * 100.0D);
             	if(osBean.getProcessCpuLoad() > 0.98 || tps < 19.0D) {
-            		getServer().broadcastMessage("§9[SpyPlugin] §4Server is overloaded! §FLag% is at " + String.valueOf(lagPercentage) + "%");
+            		if(JSONHandler.checkSetting()) {
+            			for (Player player: Bukkit.getServer().getOnlinePlayers()) {
+            			    if (player.isOp()) {
+            			        player.sendMessage("§9[SpyPlugin] §4Server is overloaded! §FLag% is at " + String.valueOf(lagPercentage) + "%");
+            			    }
+            			}
+            		} else {
+            			getServer().broadcastMessage("§9[SpyPlugin] §4Server is overloaded! §FLag% is at " + String.valueOf(lagPercentage) + "%");
+            		}
             	}
             	else if(getUsedMemory() > (getTotalMemory() - 200L)) {
-            		getServer().broadcastMessage("§9[SpyPlugin] §4Server is running out of memory!");
+            		if(JSONHandler.checkSetting()) {
+            			for (Player player: Bukkit.getServer().getOnlinePlayers()) {
+            			    if (player.isOp()) {
+            			        player.sendMessage("§9[SpyPlugin] §4Server is running out of memory!");
+            			    }
+            			}
+            		} else {
+            			getServer().broadcastMessage("§9[SpyPlugin] §4Server is running out of memory!");
+            		}
             	}
             	else if(getUsableSpaceMB() < 50L) {
-            		getServer().broadcastMessage("§9[SpyPlugin] §4Server is running out of space! World corruption is possible!!");
+            		if(JSONHandler.checkSetting()) {
+            			for (Player player: Bukkit.getServer().getOnlinePlayers()) {
+            			    if (player.isOp()) {
+            			        player.sendMessage("§9[SpyPlugin] §4Server is running out of space! World corruption is possible!!");
+            			    }
+            			}
+            		} else {
+            			getServer().broadcastMessage("§9[SpyPlugin] §4Server is running out of space! World corruption is possible!!");
+            		}
             	}
             }
         }, 1L, 20L);

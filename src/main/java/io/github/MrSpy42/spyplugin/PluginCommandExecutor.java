@@ -26,7 +26,7 @@ public class PluginCommandExecutor implements CommandExecutor {
 	    	return true;
 	    } 
 	   	else if (cmd.getName().equalsIgnoreCase("aboutspy")) { 
-	    	sender.sendMessage("§9[SpyPlugin] §DThis is a performance monitoring plugin.It checks stuff (e.g ram, server load) and informs the user if there's something wrong (e.g server overload, running out of ram). Made by MrSpy42");
+	    	sender.sendMessage("§9[SpyPlugin] §DThis is a performance monitoring plugin.It checks stuff (e.g ram, server load) and informs the user if there's something wrong (e.g server overload, running out of ram). Settings can be changed in spysettings.json in the folder where the server is located. Made by MrSpy42");
 	    	return true;
 	   	}
 	   	else if (cmd.getName().equalsIgnoreCase("freespace")) {
