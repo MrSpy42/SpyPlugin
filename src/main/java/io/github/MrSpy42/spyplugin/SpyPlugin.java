@@ -17,7 +17,7 @@ public final class SpyPlugin extends JavaPlugin {
 	    return (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1048576L;
 	}
 	
-	public void pushLogMessage(String s) {
+	public void pushLogMessage(String s) { 
 		getLogger().info(s);
 	}
 	public static long getTotalMemory() {
@@ -25,7 +25,7 @@ public final class SpyPlugin extends JavaPlugin {
 	}
 	
 	public static long getUsableSpaceMB() {
-		File f = new File("C:\\"); //Windows only, Fix later
+		File f = new File("C:\\"); //Windows, c: drive only, Fix later
 		return f.getUsableSpace() / 1048576L;
 	}
 	
@@ -46,6 +46,7 @@ public final class SpyPlugin extends JavaPlugin {
             	double lagPercentage = Math.round((1.0D - tps / 20.0D) * 100.0D);
             	if(osBean.getProcessCpuLoad() > 0.98 || tps < 19.0D) {
             		if(JSONHandler.checkSetting()) {
+            			pushLogMessage("§9[SpyPlugin] §4Server is overloaded! §FLag% is at " + String.valueOf(lagPercentage) + "%");
             			for (Player player: Bukkit.getServer().getOnlinePlayers()) {
             			    if (player.isOp()) {
             			        player.sendMessage("§9[SpyPlugin] §4Server is overloaded! §FLag% is at " + String.valueOf(lagPercentage) + "%");
@@ -57,6 +58,7 @@ public final class SpyPlugin extends JavaPlugin {
             	}
             	else if(getUsedMemory() > (getTotalMemory() - 200L)) {
             		if(JSONHandler.checkSetting()) {
+            			pushLogMessage("§9[SpyPlugin] §4Server is running out of memory!");
             			for (Player player: Bukkit.getServer().getOnlinePlayers()) {
             			    if (player.isOp()) {
             			        player.sendMessage("§9[SpyPlugin] §4Server is running out of memory!");
@@ -68,6 +70,7 @@ public final class SpyPlugin extends JavaPlugin {
             	}
             	else if(getUsableSpaceMB() < 50L) {
             		if(JSONHandler.checkSetting()) {
+            			pushLogMessage("§9[SpyPlugin] §4Server is running out of space! World corruption is possible!!");
             			for (Player player: Bukkit.getServer().getOnlinePlayers()) {
             			    if (player.isOp()) {
             			        player.sendMessage("§9[SpyPlugin] §4Server is running out of space! World corruption is possible!!");
@@ -88,5 +91,4 @@ public final class SpyPlugin extends JavaPlugin {
     	getLogger().info("SpyPlugin has been disabled!");
     }
     
-   
 }
